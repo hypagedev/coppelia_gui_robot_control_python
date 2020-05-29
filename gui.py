@@ -31,7 +31,7 @@ class GUI(Frame):
         for i in range(7):
             tit = "M"+str(i+1)
             w_label = Label(self.master, text=tit).grid(row=i, column=0, pady=4, padx = 4)
-            win = Scale(self.master, from_=-90, to=90, tickinterval= 30, orient=HORIZONTAL, resolution=10, length=450, command=lambda value, name=i: self.onScale(name, value))
+            win = Scale(self.master, from_=-180, to=180, tickinterval= 30, orient=HORIZONTAL, resolution=10, length=450, command=lambda value, name=i: self.onScale(name, value))
             win.set(0)
             win.grid(row=i, column=1)
 
@@ -54,6 +54,9 @@ class GUI(Frame):
 
 
     def onConnect(self):
+        if self.clientID != -1:
+            return
+            
         self.clientID = sim.simxStart('127.0.0.1',19999,True,True,5000,5) # Connect to CoppeliaSim
         if self.clientID == -1:
             messagebox.showinfo( "No se puede conectar")
